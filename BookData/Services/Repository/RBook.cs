@@ -26,10 +26,11 @@ namespace BookData.Services.Repository
             var param = new SqlParameter("@BookId", BookId);
 
             var BookDetails = await Task.Run(() => _dbContext.Book
-                            .FromSqlRaw(@"exec GetBookByID @BookId", param).ToListAsync());
-            Book book = BookDetails.FirstOrDefault();
-            return book;
+                            .FromSqlRaw(@"exec GetBookByID @BookId", param).AsEnumerable().FirstOrDefault());
+            return BookDetails;
         }
+        
+        
 
         public async Task<int> AddBookAsync(Book Book)
         {

@@ -132,18 +132,6 @@ namespace BookData.Controllers
             return RedirectToAction("Index");
         }
 
-        //[AcceptVerbs("Get", "Post")]
-        //public IActionResult VerifyName(Book model)
-        //{
-        //    var userdata = repBook.VerifyName(model.Title, model.BookId);
-
-        //    if (userdata)
-        //    {
-        //        return Json($"Name {model.Title} is already in use.");
-        //    }
-
-        //    return Json(true);
-        //}
 
         public IActionResult Privacy()
         {

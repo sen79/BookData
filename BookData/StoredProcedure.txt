@@ -1,0 +1,69 @@
+﻿GO
+CREATE OR ALTER PROCEDURE [dbo].[GetBookList]  
+AS
+BEGIN
+	SELECT * FROM dbo.Book
+END
+
+GO
+CREATE OR ALTER PROCEDURE [dbo].[GetBookByID]  
+@BookId int
+AS
+BEGIN
+	SELECT
+	BookId, 
+	Publisher,
+	Title,
+	AuthorFirstName,
+	AuthorLastName,
+	Price
+	FROM dbo.Book where BookId = @BookId
+END
+
+GO
+CREATE OR ALTER PROCEDURE [dbo].[AddNewBook]  
+@Publisher [nvarchar](250),
+@Title [nvarchar](250),
+@AuthorFirstName [nvarchar](250),
+@AuthorLastName [nvarchar](250),
+@Price Numeric(18, 2)
+AS
+BEGIN
+	INSERT INTO dbo.Book
+		(
+			Publisher,
+			Title,
+			AuthorFirstName,
+			AuthorLastName,
+			Price
+		)
+    VALUES 
+		(
+			@Publisher,
+			@Title,
+			@AuthorFirstName,
+			@AuthorLastName,
+			@Price
+		)
+END
+
+GO
+CREATE OR ALTER PROCEDURE [dbo].[UpdateBook]  
+@BookId int,
+@Publisher [nvarchar](250),
+@Title [nvarchar](250),
+@AuthorFirstName [nvarchar](250),
+@AuthorLastName [nvarchar](250),
+@Price Numeric(18, 2)
+AS
+BEGIN
+	UPDATE dbo.Book
+    SET 
+		Publisher = @Publisher,
+		Title =@Title,
+		AuthorFirstName =@AuthorFirstName,
+		AuthorLastName =@AuthorLastName,
+		Price =@Price
+	WHERE BookId = @BookId
+END
+GO

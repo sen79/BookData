@@ -1,0 +1,9 @@
+﻿add-migration "Initial"
+Update-Database
+
+BookId 
+Publisher
+Title
+AuthorFirstName
+AuthorLastName
+Price

@@ -1,0 +1,84 @@
+﻿@{
+    IEnumerable<Book> list = ViewBag.List as IEnumerable<Book>;
+}
+
+@{
+    ViewData["Title"] = @ViewData["Title"];
+}
+
+<h1 style="text-align:center">Books List</h1>
+
+
+
+<section>
+    <div style="text-align: -webkit-right;margin-bottom: 60px;width:150px;">
+        <a asp-controller="Home" asp-action="AddEdit" class="-btn -bg -txt">
+            Add New
+        </a>
+    </div>
+
+    <div class="table-container">
+        
+        @{
+            int i = 1;
+        }
+        <div class="col-md-12" style="display: flex;margin: 21px;font-weight: bold;">
+            <div class="col-md-1">
+                S.No
+            </div>
+            <div class="col-md-2">
+                Publisher
+            </div>
+            <div class="col-md-2">
+                Title
+            </div>
+            <div class="col-md-2">
+                Author First Name
+            </div>
+            <div class="col-md-2">
+                Author Last Name
+            </div>
+            <div class="col-md-2">
+                Price
+            </div>
+            <div class="col-md-1">
+                Action
+            </div>
+        </div>
+        @foreach (Book item in list)
+        {
+            <div class="col-md-12" style="display: flex;margin: 21px;">
+                <div class="col-md-1">
+                    @i
+                </div>
+                <div class="col-md-2">
+                    @item.Publisher
+                </div>
+                <div class="col-md-2">
+                    @item.Title
+                </div>
+                <div class="col-md-2">
+                    @item.AuthorFirstName
+                </div>
+                <div class="col-md-2">
+                    @item.AuthorLastName
+                </div>
+                <div class="col-md-2">
+                    @item.Price
+                </div>
+                <div class="col-md-1">
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="AddEdit" asp-route-id="@item.BookId">Edit</a>
+                </div>
+            </div>
+            i++;
+        }
+    </div>
+
+</section>
+
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+
+

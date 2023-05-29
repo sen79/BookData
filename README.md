@@ -33,5 +33,7 @@ Step 6:
 1. Open StoredProcedure.txt in project.
 2. copy all text and paste in sql server and run.
 
+Thank You
+
 
 

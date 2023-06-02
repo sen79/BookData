@@ -11,26 +11,35 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="@Model.BookId" />
             <fieldset>
-
-                <label for="name">Publisher:</label>
-                <input asp-for="@Model.Publisher" class="form-control" placeholder="Enter the Publisher" title=" * Enter the Publisher" required />
-                <span asp-validation-for="@Model.Publisher" class="text-danger"></span>
-                <label for="name">Title:</label>
-                <input asp-for="@Model.Title" class="form-control" placeholder="Enter the Title" title=" * Enter the Title" required />
-                <span asp-validation-for="@Model.Title" class="text-danger"></span>
-                <label for="name">Author First Name:</label>
-                <input asp-for="@Model.AuthorFirstName" class="form-control" placeholder="Enter the Author First Name" title=" * Enter the Author First Name" required />
-                <span asp-validation-for="@Model.AuthorFirstName" class="text-danger"></span>
-                <label for="name">Author Last Name:</label>
-                <input asp-for="@Model.AuthorLastName" class="form-control" placeholder="Enter the Author Last Name" title=" * Enter the Author Last Name" required />
-                <span asp-validation-for="@Model.AuthorLastName" class="text-danger"></span>
-                <label for="name">Price:</label>
-                <input asp-for="@Model.Price" class="form-control IsNumarictext" placeholder="Enter the Price" title=" * Enter the Price" required />
-                <span asp-validation-for="@Model.Price" class="text-danger"></span>
+                <div>
+                    <label for="name">Publisher:</label>
+                    <input asp-for="@Model.Publisher" class="form-control" placeholder="Enter the Publisher" title=" * Enter the Publisher" required />
+                    <span asp-validation-for="@Model.Publisher" class="text-danger"></span>
+                </div>
+                <div>
+                    <label for="name">Title:</label>
+                    <input asp-for="@Model.Title" class="form-control" placeholder="Enter the Title" title=" * Enter the Title" required />
+                    <span asp-validation-for="@Model.Title" class="text-danger"></span>
+                </div>
+                <div>
+                    <label for="name">Author First Name:</label>
+                    <input asp-for="@Model.AuthorFirstName" class="form-control" placeholder="Enter the Author First Name" title=" * Enter the Author First Name" required />
+                    <span asp-validation-for="@Model.AuthorFirstName" class="text-danger"></span>
+                </div>
+                <div>
+                    <label for="name">Author Last Name:</label>
+                    <input asp-for="@Model.AuthorLastName" class="form-control" placeholder="Enter the Author Last Name" title=" * Enter the Author Last Name" required />
+                    <span asp-validation-for="@Model.AuthorLastName" class="text-danger"></span>
+                </div>
+                <div>
+                    <label for="name">Price:</label>
+                    <input asp-for="@Model.Price" class="form-control IsNumarictext" placeholder="Enter the Price" title=" * Enter the Price" required />
+                    <span asp-validation-for="@Model.Price" class="text-danger"></span>
+                </div>
             </fieldset>
             <div class="col-md-12" style="display: flex;margin: 21px;">
-                <div class="col-md-5">
-                    <button type="submit">Save</button>
+                <div class="col-md-1">
+                    <button type="submit">@ViewData["SaveStatus"]</button>
                 </div>
                 <div class="col-md-5" style="margin-left:20px;">
                     <a asp-controller="Home" asp-action="Index" class="-btn -bg -txt">
@@ -51,7 +60,7 @@
 
 <script type="text/javascript">
 
-   
+
     function Isnumaric() {
         $(".IsNumarictext").keydown(function (e) {
             // Allow: backspace, delete, tab, escape, enter and .
@@ -69,5 +78,5 @@
             }
         });
     }
-    </script>
+</script>
 

@@ -19,10 +19,13 @@ namespace BookData.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             try
             {
+                //TotalPrice totalPrice = repBook.GetTotalPriceAsync().Result;
+                //List<Book> book = await repBook.GetBookByPagewiseListAsync(2,3);
+
                 List<Book> list = new List<Book>();
                 string apiUrl = clsCommon.APIURL + string.Format("api/BookAPI/getbooklist");
 
@@ -30,7 +33,11 @@ namespace BookData.Controllers
                 HttpResponseMessage response = client.GetAsync(apiUrl).Result;
                 if (response.IsSuccessStatusCode)
                 {
-                    list = JsonConvert.DeserializeObject<List<Book>>(response.Content.ReadAsStringAsync().Result);
+                    string result = await response.Content.ReadAsStringAsync();
+                    if (result != null)
+                    {
+                        list = JsonConvert.DeserializeObject<List<Book>>(result);
+                    }
                 }
 
                 ViewBag.List = list;
@@ -39,7 +46,7 @@ namespace BookData.Controllers
             }
             catch (Exception ex)
             {
-                return RedirectToAction("Error", new { RequestId = 404 });
+                return RedirectToAction("Error" + ex.Message.ToString(), new { RequestId = 404 });
             }
         }
 
@@ -58,32 +65,35 @@ namespace BookData.Controllers
                     HttpResponseMessage response = client.GetAsync(apiUrl).Result;
                     if (response.IsSuccessStatusCode)
                     {
-                        model = JsonConvert.DeserializeObject<Book>(response.Content.ReadAsStringAsync().Result);
+                        model = JsonConvert.DeserializeObject<Book>(await response.Content.ReadAsStringAsync());
                     }
 
-                     
+
                     ViewData["Title"] = "Book - Edit Record";
+                    ViewData["SaveStatus"] = "Update";
                 }
                 else
                 {
                     ViewData["Title"] = "Book - New Record";
+                    ViewData["SaveStatus"] = "Save";
                 }
+                
 
                 return View(model);
             }
             catch (Exception ex)
             {
-                return RedirectToAction("Error", new { RequestId = 404 });
+                return RedirectToAction("Error" + ex.Message.ToString(), new { RequestId = 404 });
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddEdit( Book model)
+        public async Task<IActionResult> AddEdit(Book model)
         {
             try
             {
                 Book list = new Book();
-                if (model.BookId==0)
+                if (model.BookId == 0)
                 {
                     string apiUrl = clsCommon.APIURL + string.Format("api/BookAPI/");
 
@@ -123,7 +133,7 @@ namespace BookData.Controllers
             }
             catch (Exception ex)
             {
-                return RedirectToAction("Error", new { RequestId = 404 });
+                return RedirectToAction("Error" + ex.Message.ToString(), new { RequestId = 404 });
             }
 
         }
@@ -132,18 +142,7 @@ namespace BookData.Controllers
             return RedirectToAction("Index");
         }
 
-        //[AcceptVerbs("Get", "Post")]
-        //public IActionResult VerifyName(Book model)
-        //{
-        //    var userdata = repBook.VerifyName(model.Title, model.BookId);
 
-        //    if (userdata)
-        //    {
-        //        return Json($"Name {model.Title} is already in use.");
-        //    }
-
-        //    return Json(true);
-        //}
 
         public IActionResult Privacy()
         {

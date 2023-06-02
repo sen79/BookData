@@ -2,8 +2,6 @@ using BookData.Data;
 using BookData.Models;
 using BookData.Services.Interface;
 using BookData.Services.Repository;
-using BookData.Data;
-using BookData.Services.Interface;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 

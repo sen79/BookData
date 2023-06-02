@@ -28,6 +28,19 @@ namespace BookData.Controllers.API
             }
         }
 
+        [HttpGet("getbookbypagewiselist")]
+        public async Task<List<Book>> GetBookByPagewiseListAsync(int page, int pageSize)
+        {
+            try
+            {
+                return await repBook.GetBookByPagewiseListAsync(page, pageSize);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
         [HttpGet("getbookbyid")]
         public async Task<Book> GetBookByIdAsync(int Id)
         {

@@ -14,7 +14,7 @@ namespace BookData.Data
             }
             else
             {
-                functional.InitAppData();
+                await functional.InitAppData();
             }
         }
     }

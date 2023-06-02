@@ -21,6 +21,19 @@ BEGIN
 END
 
 GO
+CREATE OR ALTER PROCEDURE [dbo].[GetBookByPagewiseList]  
+@Page int, @PageSize int
+AS
+BEGIN
+
+	Declare @TotalOffset int;
+	SET @TotalOffset = (@Page -1) * @PageSize 
+
+	SELECT * FROM Book ORDER BY BookId ASC OFFSET @TotalOffset ROWS FETCH NEXT @PageSize ROWS ONLY  
+
+END
+
+GO
 CREATE OR ALTER PROCEDURE [dbo].[AddNewBook]  
 @Publisher [nvarchar](250),
 @Title [nvarchar](250),
@@ -65,5 +78,12 @@ BEGIN
 		AuthorLastName =@AuthorLastName,
 		Price =@Price
 	WHERE BookId = @BookId
+END
+GO
+
+CREATE OR ALTER PROCEDURE [dbo].[GetTotalPrice]  
+AS
+BEGIN
+	SELECT sum(Price) Value FROM dbo.Book
 END
 GO

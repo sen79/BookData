@@ -1,4 +1,5 @@
-﻿using BookData.Services.Models;
+﻿using BookData.Models;
+using BookData.Services.Models;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -17,7 +18,9 @@ namespace BookData.Data
         }
 
 
-        public DbSet<Book> Book { get; set; }
-         
+        public DbSet<Book> Book { get; set; } = null!;
+        
+        public DbSet<TotalPrice> TotalPrice { get; set; } = null!;
+
     }
 }

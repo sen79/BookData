@@ -3,6 +3,8 @@ using BookData.Services.Interface;
 using Microsoft.EntityFrameworkCore;
 using BookData.Services.Models;
 using Microsoft.Data.SqlClient;
+using BookData.Models;
+using Newtonsoft.Json.Linq;
 
 namespace BookData.Services.Repository
 {
@@ -20,15 +22,29 @@ namespace BookData.Services.Repository
                 .FromSqlRaw<Book>("GetBookList")
                 .ToListAsync();
         }
+        public async Task<List<Book>> GetBookByPagewiseListAsync(int page, int pageSize)
+        {
+            var parameter = new List<SqlParameter>();
+            parameter.Add(new SqlParameter("@Page", page));
+            parameter.Add(new SqlParameter("@PageSize", pageSize));
+            return await _dbContext.Book
+                .FromSqlRaw<Book>("GetBookByPagewiseList @Page, @PageSize", parameter.ToArray())
+                .ToListAsync();
+        }
+        public async Task<TotalPrice> GetTotalPriceAsync()
+        {
+            var value = await Task.Run(() => _dbContext.TotalPrice
+                            .FromSqlRaw(@"exec GetTotalPrice").AsEnumerable().FirstOrDefault());
+            return value;
+        }
 
         public async Task<Book> GetBookByIdAsync(int BookId)
         {
             var param = new SqlParameter("@BookId", BookId);
 
             var BookDetails = await Task.Run(() => _dbContext.Book
-                            .FromSqlRaw(@"exec GetBookByID @BookId", param).ToListAsync());
-            Book book = BookDetails.FirstOrDefault();
-            return book;
+                            .FromSqlRaw(@"exec GetBookByID @BookId", param).AsEnumerable().FirstOrDefault());
+            return BookDetails;
         }
 
         public async Task<int> AddBookAsync(Book Book)
@@ -61,7 +77,6 @@ namespace BookData.Services.Repository
             return result;
         }
 
-
-
+        
     }
 }

@@ -10,7 +10,6 @@ namespace BookData.Services.Models
         public int BookId { get; set; }
         [StringLength(250)]
         public string Publisher { get; set; } = "";
-        [Remote(action: "VerifyName", controller: "Home", AdditionalFields = "BookId")]
         [StringLength(250)]
         public string Title { get; set; } = "";
         [StringLength(250)]

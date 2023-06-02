@@ -46,6 +46,8 @@ namespace BookData.Services.Repository
                             .FromSqlRaw(@"exec GetBookByID @BookId", param).AsEnumerable().FirstOrDefault());
             return BookDetails;
         }
+        
+        
 
         public async Task<int> AddBookAsync(Book Book)
         {
